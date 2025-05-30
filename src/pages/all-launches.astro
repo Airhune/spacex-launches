@@ -1,0 +1,48 @@
+---
+import CardLaunch from "../components/CardLaunch.astro";
+import Launches from "../components/Launches.astro";
+import Layout from "../layouts/Layout.astro";
+
+import { type APISpaceXAPIResponse } from '../types/api';
+
+const res = await fetch('https://api.spacexdata.com/v4/launches/query', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        query: {},
+        options: {
+            limit: 180,
+            sort: {
+                date_unix: 'asc',
+            },
+        },
+    }),
+});
+const { docs: launches } = (await res.json()) as APISpaceXAPIResponse;
+launches.sort((a, b) => b.date_unix - a.date_unix);
+---
+
+<Layout title="SpaceX Launches">
+    <div class="container mt-40 flex flex-col mx-auto pb-15">
+        <h1 class="text-5xl font-semibold text-white mb-8">All launches</h1>
+
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {
+                launches.map((launch) => (
+                    <CardLaunch
+                        id={launch.id}
+                        name={launch.name}
+                        date={new Date(launch.date_utc).toLocaleDateString('en-US', {year: 'numeric',month: 'short',day: 'numeric',})}
+                        img={launch.links.patch.small}
+                        details={launch.details}
+                        flightNumber={launch.flight_number}
+                        success={launch.success}
+                    />
+                ))
+            }
+        </div>
+    </div>
+</Layout>
+

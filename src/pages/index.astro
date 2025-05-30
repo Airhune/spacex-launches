@@ -2,10 +2,30 @@
 import Launches from "../components/Launches.astro";
 import Layout from "../layouts/Layout.astro";
 
+import { Image } from 'astro:assets';
+import logo from '../assets/images/spacex_launches_w.png';
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout title="SpaceX Launches">
-    <Launches
+    <div class="bg-theme-blue-light relative mx-auto mb-16 h-screen w-full md:aspect-video md:h-full md:object-cover">
+        <div title="Background Space X" class="absolute right-50 z-50 mx-auto flex justify-center md:top-0 lg:top-90">
+            <h1 class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl text-right">DISCOVER THE UNIVERSE</br>WITH US</h1>
+        </div>
+
+        <div class="image relative"></div>
+    </div>
+
+    <Launches/>
 </Layout>
+
+<style>
+    .image {
+        background-image: url(/images/background.jpg);
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        z-index: 20;
+    }
+</style>

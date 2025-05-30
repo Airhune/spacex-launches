@@ -2,7 +2,43 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="About the project">
-    <h1 class="text-white">About the project</h1>
-    <p class="text-white">The Spacex launches project is a demo for the Astro course</p>
+<Layout title="About SpaceX">
+    <div class="mt-40 container flex flex-col mx-auto pb-15">
+        <div class="absolute inset-0 -z-10 overflow-hidden">
+            <svg class="absolute top-0 left-[max(50%,25rem)] h-256 w-512 -translate-x-1/2 mask-[radial-gradient(64rem_64rem_at_top,white,transparent)] stroke-gray-200" aria-hidden="true">
+            <defs>
+                <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                <path d="M100 200V.5M.5 .5H200" fill="none" />
+                </pattern>
+            </defs>
+            <svg x="50%" y="-1" class="overflow-visible fill-gray-50">
+                <path d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z" stroke-width="0" />
+            </svg>
+            <rect width="100%" height="100%" stroke-width="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
+            </svg>
+        </div>
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+            <div class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-8xl lg:grid-cols-2 lg:gap-x-8">
+            <div class="lg:pr-4">
+                <div class="lg:max-w-2g">
+                    <h1 class="text-5xl font-semibold text-white mb-8">What is SpaceX?</h1>
+                    <p class="mt-6 text-xl/8 text-gray-400"><strong>SpaceX</strong> (Space Exploration Technologies Corp.) is a private aerospace company founded in 2002 by <strong>Elon Musk</strong> with the ambitious goal of making space travel more affordable and enabling human life on other planets.</p>
+                    <p class="mt-6 text-xl/8 text-gray-400">Since its inception, SpaceX has transformed the space industry by developing <strong>reusable rockets</strong> like the <strong>Falcon 9</strong> and <strong>Falcon Heavy</strong>, significantly reducing the cost of space launches. It also created the <strong>Dragon spacecraft</strong>, which has delivered cargo and crew to the International Space Station (ISS).</p>
+                    <h2 class="mt-8 text-2xl font-bold tracking-tight text-white">Interplanetary future — it's the mission.</h2>
+                    <p class="mt-6 text-xl/8 text-gray-400">One of SpaceX's most groundbreaking projects is <strong>Starship</strong>, a next-generation fully reusable spacecraft designed for missions to the Moon, Mars, and beyond — with the long-term vision of making life multiplanetary.</p>
+                    <p class="mt-6 text-xl/8 text-gray-400">Additionally, SpaceX is building <strong>Starlink</strong>, a global satellite internet network aimed at providing high-speed internet access to underserved and remote areas around the world.</p>
+                    <p class="mt-6 text-xl/8 text-gray-400">Through innovation, bold vision, and cutting-edge engineering, SpaceX is not only leading the commercial space race but also redefining the future of space exploration.</p>
+                </div>
+            </div>
+            </div>
+            <div class="-mt-12 -ml-12 p-16 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img class="w-3xl max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-228" src="/images/SpaceX_Starship.jpg" alt="">
+            </div>
+        </div>
+        <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div class="lg:pr-4">
+                <div class="max-w-xl text-base/7 text-gray-700 lg:max-w-lg">
+                    </div>
+        </div>
+    </div>
 </Layout>

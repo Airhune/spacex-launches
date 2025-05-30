@@ -1,31 +1,48 @@
 ---
-import HeaderButton from "./HeaderButton.astro";
+import { Image } from 'astro:assets';
+import logo from '../assets/images/spacex_launches_w.png';
 ---
 
-<header class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6">
-    <div class="mx-auto text-center mb-8 lg:mb-16">
-        <h2 class="mb-4 text-5xl tracking-tight font-extrabold text-white">SpaceX Launches</h2>
-        <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">All the information about SpaceX launches.</p>
-    </div>
+<header class="fixed top-0 z-50 mx-auto flex h-20 w-full select-none items-center text-white sm:h-screen sm:overflow-hidden md:h-20">
+    <div class="mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5">
+        <nav class="w-full flex justify-between gap-6 relative">
+            <a class="min-w-max inline-flex relative" href="/">
+                <Image class="w-50" src={logo} alt="SpaceX Launches" />
+            </a>
+            <div class="relative hidden md:flex items-center justify-center">
+                <ul class="items-center justify-between hidden gap-12 md:flex text-lg text-gray-300 w-full lg:justify-center">
 
-    <nav class="flex flex-col items-center justify-between w-full text-center md:flex-row">
-        <HeaderButton class="text-white" href="/">
-            <svg slot="before" width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rocket">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" /><path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" /><path d="M15 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-            </svg>
-            Últimos lanzamientos
-        </HeaderButton>
-        <HeaderButton class="text-white" href="/about">
-            <svg slot="before" width="24"height="24"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path><path d="M12 9h.01"></path><path d="M11 12h1v4h1"></path>
-            </svg>
-            Sobre el proyecto
-        </HeaderButton>
-        <HeaderButton class="text-white" href="/oldest">
-            <svg slot="before"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clock-play">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 7v5l2 2" /><path d="M17 22l5 -3l-5 -3z" /><path d="M13.017 20.943a9 9 0 1 1 7.831 -7.292" />
-            </svg>
-            Lanzamientos más antiguos
-        </HeaderButton>
-    </nav>
+                    <li>
+                        <a href="/about" class="uppercase duration-300 ease-linear font-semibold hover:text-white py-3">About</a>
+                    </li>
+                    <li>
+                        <a href="/all-launches" class="uppercase duration-300 ease-linear font-semibold hover:text-white py-3">All launches</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </header>
+
+<style is:global>
+    @keyframes header-blur-scroll {
+        from {
+            background-color: transparent;
+            backdrop-filter: none;
+            border-color: transparent;
+        }
+        to {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    header {
+        background: transparent;
+        animation: header-blur-scroll .3s linear both;
+        animation-timeline: scroll();
+        animation-range: 0 500px;
+        border-bottom: 1px solid transparent;
+    }
+</style>

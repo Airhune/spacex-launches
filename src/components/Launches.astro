@@ -10,7 +10,7 @@ const res = await fetch('https://api.spacexdata.com/v4/launches/query', {
     body: JSON.stringify({
         query: {},
         options: {
-            limit: 10,
+            limit: 180,
             sort: {
                 date_unix: 'asc',
             },
@@ -18,19 +18,28 @@ const res = await fetch('https://api.spacexdata.com/v4/launches/query', {
     }),
 });
 const { docs: launches } = (await res.json()) as APISpaceXAPIResponse;
+launches.sort((a, b) => b.date_unix - a.date_unix);
+
+const latest6 = launches.slice(0, 6);
 
 ---
 
-<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-    {
-        launches.map((launch) => (
-            <CardLaunch
-                id={launch.id}
-                img={launch.links.patch.small}
-                details={launch.details}
-                flightNumber={launch.flight_number}
-                success={launch.success}
-            />
-        ))
-    }
+<div class="container flex flex-col mx-auto pb-15">
+    <h2 class="text-5xl font-semibold text-white mb-8">Last Launches</h2>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+            latest6.map((launch) => (
+                <CardLaunch
+                    id={launch.id}
+                    name={launch.name}
+                    date={new Date(launch.date_utc).toLocaleDateString('en-US', {year: 'numeric',month: 'short',day: 'numeric',})}
+                    img={launch.links.patch.small}
+                    details={launch.details}
+                    flightNumber={launch.flight_number}
+                    success={launch.success}
+                />
+            ))
+        }
+    </div>
 </div>

@@ -10,37 +10,60 @@ if(!id){
 
 const res = await fetch(`https://api.spacexdata.com/v4/launches/${id}`);
 const launch = (await res.json()) as Doc;
+const launchStatus = launch.success ? "Success" : "Failure";
 
-// export async function getStaticPaths() {
-//     const res = await fetch('https://api.spacexdata.com/v4/launches/query', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//         query: {},
-//         options: {
-//             limit: 10,
-//             sort: {
-//                 date_unix: 'asc',
-//                 },
-//             },
-//         }),
-//     });
 
-//     const data = await res.json();
-//     const paths = data.docs.map((launch: any) => ({
-//         params: { id: launch.id }
-//     }));
-
-//     return paths;
-// }
 ---
 
 <Layout title=`Launch ${launch?.id}`>
-    <article class="flex flex-col gap-y-4">
-        <img src={launch?.links?.patch.small} alt={`Patch for launch ${launch?.name}`} class="w-52 h-auto" />
-        <h2 class="text-4xl text-white font-bold">Launch #{launch?.flight_number}</h2>
-        <p class="text-lg">{launch?.details}</p>
-    </article>
+    <div class="mt-50 container flex flex-col mx-auto pb-15">
+
+        <div class="max-w-[770px] mx-auto text-center">
+            <article class="flex flex-col gap-y-4">
+                <div class="flex items-center gap-18 mb-10 justify-center">
+                    <img src={launch?.links?.patch.small} alt={`Patch for launch ${launch?.name}`} class="w-42 h-auto" />
+
+                    <div class="text-lg flex-row">
+                        <h1 class="font-bold text-2xl sm:text-4xl lg:text-custom-2 text-dark mb-5">Launch #{launch?.flight_number}</h1>
+                        <p class="text-gray-500 mb-2.5">{new Date(launch.date_utc).toLocaleDateString('en-US', {year: 'numeric',month: 'short',day: 'numeric',})}</p>
+                        <span class:list={["uppercase text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                        {
+                            "bg-green-600 text-white" : launch.success,
+                            "bg-red-600 text-white": !launch.success
+                        }
+                        ]}>{launchStatus}</span>
+                    </div>
+                </div>
+
+                <div class="text-left">
+                    <p class="mt-6 text-xl/8 text-gray-400"><strong>{launch.name}</strong> was launched on <strong>{new Date(launch.date_utc).toLocaleDateString('en-US', {year: 'numeric',month: 'long',day: 'numeric',})}</strong> marking another significant milestone in SpaceX’s relentless pursuit of transforming space exploration.</p>
+                    <p class="mt-8 text-2xl font-bold tracking-tight text-white">What does it take to send a rocket beyond Earth’s atmosphere?</p>
+                    <p class="mt-2 text-xl/8 text-white">SpaceX continues to answer that question with each bold mission.</p>
+                    {launch?.details && (
+                        <p class="mt-6 text-xl/8 text-gray-400">Even the best-engineered rockets face challenges. Unfortunately, this mission did not reach its intended success.</p>
+                        <p class="mt-6 text-xl/8 text-gray-400"><strong>What went wrong?</strong> The mission failed due to {launch.details}, a powerful reminder of the unforgiving nature of spaceflight.</p>
+                    )}
+                    <p class="mt-6 text-xl/8 text-gray-400">The launch was streamed live to a global audience — watch the full mission here: </p>
+                    <lite-youtube
+                        class="w-full max-w-[1030px] h-[550px] mt-5"
+                        videoid={launch?.links?.youtube_id}
+                        title={launch?.name}></lite-youtube>
+                    <p class="mt-6 text-xl/8 text-gray-400">
+                        Want to dive deeper?
+                        {launch?.links?.article && (
+                            <>
+                            {' '}
+                            An <a class="font-semibold" href={launch.links.article} target="_blank">in-depth article</a> and the{' '}
+                            </>
+                        )}
+                        <a class="font-semibold" href={launch?.links?.wikipedia ?? '#'} target="_blank">Wikipedia page</a>
+                        {' '}offer detailed insights into the mission’s goals, technology, and results.
+                        </p>
+                    <p class="mt-8 text-2xl font-bold tracking-tight text-white">Why does this launch matter?</p>
+                    <p class="mt-2 text-xl/8 text-white">Every mission — success or failure — brings us one step closer to a multiplanetary future.</p>
+                    <p class="mt-6 text-xl/8 text-gray-400">SpaceX continues to push the boundaries of what’s possible. This launch adds to a growing legacy that is not only reshaping the aerospace industry but also inspiring a new generation of explorers and dreamers.</p>
+                </div>
+            </article>
+        </div>
+    </div>
 </Layout>
