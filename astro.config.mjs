@@ -1,12 +1,8 @@
-// @ts-check
 import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
-
+import netlify from "@astrojs/netlify";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
-  site: "https://astro.100x100.net",
   vite: {
     plugins: [tailwindcss()],
   },
@@ -14,11 +10,5 @@ export default defineConfig({
     enabled: false,
   },
   output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
-  server: {
-    host: "0.0.0.0",
-    port: 4321,
-  },
+  adapter: netlify(),
 });
